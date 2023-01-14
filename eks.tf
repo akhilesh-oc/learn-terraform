@@ -19,8 +19,15 @@ resource "aws_iam_role" "demo-role" {
 POLICY
 }
 
+resource "aws_iam_role_policy_attachment" "demo-cluster-POLICY" {
+    policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+    role = aws_iam_role.demo-role.name
+}
 
-# resource "aws_eks_cluster" "demo-cluster" {
+# resource "aws_eks_cluster" "demo-akhi" {
 #     name = "demo-akhi"
-#     role_arn = aws_iam_role.demo-eks-role.arn
+#     role_arn = aws_iam_role.demo-role.arn
+#     depends_on = [
+#       aws_iam_role.demo-role
+#     ]
 # }
