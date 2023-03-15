@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Executing Build...'
+            }
+        }
+        stage('Testing') {
+            steps {
+                echo 'Executing Test...'
+            }
+        }
+    }
+    post {
+        always {
+            sh 'echo "POST is called"'
+            withCredentials([usernamePassword(credentialsId: 'c8107463-1d68-4a40-a542-92f0197cbdc5', usernameVariable: 'akhilesh-oc', passwordVariable: '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')]) {
+              sh """
+              curl -s -H "Authorization: token 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" -X POST -d '{"body": "Testing PR comment"}' https://api.github.com/repos/akhilesh-oc/learn-terraform/${CHANGE_ID}/comments
+              """
+        }
+    }
+}
