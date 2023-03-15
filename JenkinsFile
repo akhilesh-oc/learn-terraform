@@ -16,9 +16,9 @@ pipeline {
     post {
         always {
             sh 'echo "POST is called"'
-            withCredentials([usernamePassword(credentialsId: '906ccabb-7bfc-4a1d-bb88-6f3de309daea', usernameVariable: 'akhilesh-oc', passwordVariable: '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')]) {
+            withCredentials([usernamePassword(credentialsId: 'df5b8f79-06df-4c51-84a0-0bac57b780b8', usernameVariable: 'akhilesh-oc', passwordVariable: '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')]) {
               sh """
-              curl -s -H "Authorization: token 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" -X POST -d '{"body": "Testing PR comment"}' https://api.github.com/repos/akhilesh-oc/learn-terraform/${CHANGE_ID}/comments
+              curl -s -H "Authorization: token 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" -X POST -d '{"body": "Testing PR comment"}' https://api.github.com/repos/akhilesh-oc/learn-terraform/${CHANGE_ID}/comments
               """
             }
         }
