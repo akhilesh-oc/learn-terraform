@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Executing Build...'
+            }
+        }
+        stage('Testing') {
+            steps {
+                echo 'Executing Test...'
+            }
+        }
+    }
+    post {
+        always {
+            sh 'echo "POST is called"'
+            withCredentials([usernamePassword(credentialsId: '7a3689ca-76e4-4f24-8832-33ed2d50c49c', usernameVariable: 'USERNAME', passwordVariable: 'GIT_PASSWD')]) {
+              sh """
+              curl -s -H "Authorization: token $GIT_PASSWD" -X POST -d '{"body": "Testing PR1 comment from jenkins"}' https://api.github.com/repos/akhilesh-oc/learn-terraform/issues/${CHANGE_ID}/comments
+              """
+            }
+        }
+    }
+}
